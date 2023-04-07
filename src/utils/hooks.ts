@@ -18,10 +18,26 @@ let useMDX = (content: any) => {
         };
       });
       visit(tree, { type: "element", tagName: "a" }, (node) => {
-        node.properties = {
-          ...node.properties,
-          target: "_blank",
-        };
+        if (node.properties.href && node.properties.href.includes('youtube.com')) {
+          const url = new URL(node.properties.href);
+          const videoId = url.searchParams.get('v');
+          const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+          node.tagName = 'iframe';
+          node.properties = {
+            ...node.properties,
+            className: "w-full h-screen",
+            src: embedUrl,
+            frameborder: 0,
+            allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
+            allowfullscreen: true,
+          };
+          delete node.children;
+        } else {
+          node.properties = {
+            ...node.properties,
+            target: "_blank",
+          };
+        }
       });
     };
   };
@@ -40,35 +56,4 @@ let useMDX = (content: any) => {
   return markDown;
 };
 
-const useBodyLockScroll = (isOpen: boolean) => {
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-  }, [isOpen]);
-};
-
-const events = [`mousedown`, `touchstart`];
-
-export default function useClickOutside(refs: any, onClickOutside: any) {
-  const isOutside = (element: any) =>
-    refs.every((ref: any) => !ref.current || !ref.current.contains(element));
-
-  const onClick = (event: any) => {
-    if (isOutside(event.target)) {
-      onClickOutside();
-    }
-  };
-
-  useEffect(() => {
-    events.forEach((event) => document.addEventListener(event, onClick));
-
-    return () => {
-      events.forEach((event) => document.removeEventListener(event, onClick));
-    };
-  });
-}
-
-export { useMDX, idGenerator, useBodyLockScroll, useClickOutside };
+export { useMDX, idGenerator };
