@@ -3,3 +3,6 @@ node_modules/
 public
 src/gatsby-types.d.ts
 ignore
+.DS_Store
+src/.DS_Store
+src/components/.DS_Store

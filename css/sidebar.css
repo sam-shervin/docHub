@@ -28,10 +28,11 @@
   touch-action: manipulation;
   vertical-align: top;
   white-space: nowrap;
+
 }
 
 .button:hover {
-  background-color: #3c4740;
+  background-color: #45b56e;
   opacity: 1;
   transform: translateY(0);
   transition-duration: .35s;
@@ -43,5 +44,42 @@
 }
 
 .button:hover {
-  box-shadow: rgba(0, 255, 106, 0.256) 0 6px 12px;
+  box-shadow: rgba(0, 255, 225, 0.601) 0 6px 12px;
+}
+
+.starry-night-fg {
+  background-color: rgba(0,0,0, 0.6); /* Black w/opacity/see-through */
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  position:fixed;
+  overflow-y:auto;
+  height: 80%;
+  box-shadow: 0 0 30px #0b97dd;
+  display: block;
+  left: 0;
+  nav-up: 0;
+  nav-right: 0;
+}
+
+.starry-night-fg::-webkit-scrollbar {
+  width: 10px;
+  background-color: #0bdd892e;
+}
+.starry-night-fg::-webkit-scrollbar-track {
+  background: #a7252541;
+}
+
+/* Handle */
+.starry-night-fg::-webkit-scrollbar-thumb {
+  background: #699bd083;
+}
+
+/* Handle on hover */
+.starry-night-fg::-webkit-scrollbar-thumb:hover {
+  background: #10b2ed88;
+}
+
+.intermediate {
+  position: fixed;
 }
